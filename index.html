@@ -50,7 +50,8 @@
 
               const numPixels = imageData.data.length / 4;
               for (let i = 0; i < numPixels; i++) {
-                  const threshold = 5;
+                /*  
+                const threshold = 20;
                   const r = i * 4;
                   const g = r + 1;
                   const b = r + 2;
@@ -61,7 +62,13 @@
                     imageData.data[r] = 0;
                     imageData.data[g] = 0;
                     imageData.data[b] = 0;
-                  }
+                  }*/
+                  const r = i * 4;
+                  const g = r + 1;
+                  const b = r + 2;                  
+                  imageData.data[r] = Math.abs(imageData.data[r] - lastImageData[r]);
+                  imageData.data[g] = Math.abs(imageData.data[g] - lastImageData[g]);
+                  imageData.data[b] = Math.abs(imageData.data[b] - lastImageData[b]);
               }
 
               displayCtx.putImageData(imageData, 0, 0);
