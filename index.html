@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <video id="webcamVideo" style="display: none;"></video>
+    <canvas id="blitCanvas" style="display: none;margin-left: auto; margin-right: auto;;"></canvas>
+    <canvas id="displayCanvas" style="background-color: magenta; margin-left: auto; margin-right: auto;"></canvas>
+    <script type="text/javascript">
+
+      function startWebcam() {
+        const webcamVideoEl = document.getElementById("webcamVideo");
+        const blitCanvas = document.getElementById("blitCanvas");
+        const blitCtx = blitCanvas.getContext("2d");
+        const displayCanvasEl = document.getElementById("displayCanvas");
+        const displayCtx = displayCanvasEl.getContext("2d");
+        var lastImageData = null;
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(stream => {
+            webcamVideoEl.srcObject = stream;
+            webcamVideoEl.setAttribute('autoplay', '');
+            webcamVideoEl.setAttribute('muted', '');
+            webcamVideoEl.setAttribute('playsinline', '')
+            webcamVideoEl.play();
+
+            function processFrame(now, metadata) {
+              const canvasWidth = window.innerWidth;
+              const height = canvasWidth * metadata.height/metadata.width;
+              
+              blitCanvas.width = canvasWidth;
+              displayCanvasEl.width = canvasWidth;
+              blitCanvas.height = height;
+              displayCanvasEl.height = height;
+
+              blitCtx.drawImage(webcamVideoEl, 0, 0, canvasWidth, height);
+              const imageData = blitCtx.getImageData(0, 0, canvasWidth, height);
+              const unmodified = new Uint8ClampedArray(imageData.data);
+              
+              if (lastImageData == null) 
+              {
+                lastImageData = unmodified;
+                webcamVideoEl.requestVideoFrameCallback(processFrame);
+                return;
+              }
+
+              const numPixels = imageData.data.length / 4;
+              for (let i = 0; i < numPixels; i++) {
+                  const threshold = 20;
+                  const r = i * 4;
+                  const g = r + 1;
+                  const b = r + 2;
+                  if (Math.abs(imageData.data[r] - lastImageData[r]) < threshold && 
+                      Math.abs(imageData.data[g] - lastImageData[g]) < threshold && 
+                      Math.abs(imageData.data[b] - lastImageData[b]) < threshold) 
+                  {
+                    imageData.data[r] = 0;
+                    imageData.data[g] = 0;
+                    imageData.data[b] = 0;
+                  }
+              }
+
+              displayCtx.putImageData(imageData, 0, 0);
+              webcamVideoEl.requestVideoFrameCallback(processFrame);
+              lastImageData = unmodified;
+            }
+
+            webcamVideoEl.requestVideoFrameCallback(processFrame);
+        }).catch(error => {
+          console.error(error);
+        });
+      }
+
+      startWebcam();
+    </script>
+  </body>
+</html>
