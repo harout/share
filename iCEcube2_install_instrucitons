@@ -9,7 +9,7 @@ network:
     eth0:
       dhcp4: true
       match:
-        macaddress: 00:0c:29:c4:28:34
+        macaddress: 00:aa:bb:cc:dd:ee
       set-name: eth0
 
 
