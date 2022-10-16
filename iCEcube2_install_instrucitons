@@ -1,0 +1,47 @@
+Let NetworkManager know we need the network device to be named eth0
+--------------------------------------------------------------------
+/etc/netplan/01-network-manager-all.yaml 
+# Let NetworkManager manage all devices on this system
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    eth0:
+      dhcp4: true
+      match:
+        macaddress: 00:0c:29:c4:28:34
+      set-name: eth0
+
+
+Install dependencies
+--------------------------------------------------------------------
+sudo apt update
+sudo apt upgrade
+
+sudo apt install gcc-10-base:i386 libc6:i386 libcrypt1:i386 \
+    libgcc-s1:i386 libidn2-0:i386 libunistring2:i386 \
+    zlib1g:i386 libxext6:i386 libsm6:i386 libxi6:i386 \
+    libxrender1:i386 libxrandr2:i386 libxfixes3:i386 \
+    libxcursor1:i386 libxinerama1:i386 libfreetype6:i386 \
+    libfontconfig1:i386 libglib2.0-0 lib32stdc++6 libglib2.0-0:i386
+
+
+Install an old libpng after modifying it to work on Ubuntu 20
+--------------------------------------------------------------------
+# Get libpng12-0 for Ubuntu i386 from somewhere. Try
+http://ppa.launchpad.net/linuxuprising/libpng12/ubuntu/pool/main/libp/libpng/
+
+# extract it to /tmp/libpng
+sudo dpkg-deb -R libpng12-0_1.2.50-1ubuntu2.14.04.3_arm64.deb libpng
+
+# now remove the problematic symlink that causes the error
+rm -rf libpng/usr/
+
+# and now repackage it
+sudo dpkg-deb -b libpng libpng-fixed.deb
+
+
+# finally install from your fixed package
+sudo apt install ./libpng-fixed.deb
+
+
