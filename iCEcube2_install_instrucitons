@@ -47,13 +47,13 @@ sudo apt install ./libpng-fixed.deb
 Fix borken scripts
 --------------------------------------------------------------------
 # Step 6a: Replace #!/bin/sh shebang with #!/bin/bash recursively
-find ~/lscc/iCEcube2.2017.08/synpbase/bin/ \
+find ~/lscc/iCEcube2.2020.12/synpbase/bin/ \
     -type f -exec sed -i '1s/#\!\/bin\/sh/#\!\/bin\/bash/g' {} \;
  
 # Step 6b: Replace some occurrences of /bin/sh with /bin/bash
-find ~/lscc/iCEcube2.2017.08/synpbase/lib/ \
+find ~/lscc/iCEcube2.2020.12/synpbase/lib/ \
     -type f -exec sed -i 's/\/bin\/sh /\/bin\/bash /g' {} \;
-find ~/lscc/iCEcube2.2017.08/synpbase/lib/ \
+find ~/lscc/iCEcube2.2020.12/synpbase/lib/ \
     -type f -exec sed -i "s/'\/bin\/sh'/'\/bin\/bash'/g" {} \;
 
 
