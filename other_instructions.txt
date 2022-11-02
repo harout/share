@@ -26,3 +26,6 @@ Type=Application
 
 
 sudo apt install gnome-shell-extension-desktop-icons-ng
+
+snap-store --quit
+sudo snap refresh
