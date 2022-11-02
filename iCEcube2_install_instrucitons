@@ -1,16 +1,16 @@
 Let NetworkManager know we need the network device to be named eth0
 --------------------------------------------------------------------
 /etc/netplan/01-network-manager-all.yaml 
-# Let NetworkManager manage all devices on this system
 network:
   version: 2
   renderer: NetworkManager
-  ethernets:
+  bridges:
     eth0:
-      dhcp4: true
-      match:
-        macaddress: 00:aa:bb:cc:dd:ee
-      set-name: eth0
+      dhcp4: no
+      dhcp6: no
+      accept-ra: no
+      interfaces: [ ]
+      macaddress: 14:13:33:1e:f0:51
 
 
 Install dependencies
