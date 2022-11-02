@@ -23,3 +23,6 @@ Comment=ApplicationDescription
 Exec=/home/tumo/alchitry-labs-1.2.7/alchitry-labs
 Icon=/home/tumo/alchitry-labs-1.2.7/icon.png
 Type=Application
+
+
+sudo apt install gnome-shell-extension-desktop-icons-ng
