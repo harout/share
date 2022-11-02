@@ -2,3 +2,24 @@ sudo apt install default-jre
 apt install fuse
 sudo apt install fuse
 sudo apt install sigrok
+
+In iCECube folder
+find . -type f -exec sed -i 's/\/sh/\/bash/g' {} \;
+
+sudo adduser tumo dialout
+Copy udev rules from alchitry drivers folder to /etc/udev/rules.d/
+
+
+for f in /usr/lib/udev/rules.d/*brltty*.rules; do
+        sudo ln -s /dev/null "/etc/udev/rules.d/$(basename "$f")"
+done
+sudo udevadm control --reload-rules
+
+
+gio set file.desktop metadata::trusted true
+[Desktop Entry]
+Name=ApplicationName
+Comment=ApplicationDescription
+Exec=/home/tumo/alchitry-labs-1.2.7/alchitry-labs
+Icon=/home/tumo/alchitry-labs-1.2.7/icon.png
+Type=Application
