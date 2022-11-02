@@ -1,0 +1,4 @@
+sudo apt install default-jre
+apt install fuse
+sudo apt install fuse
+sudo apt install sigrok
