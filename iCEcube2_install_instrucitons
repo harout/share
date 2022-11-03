@@ -18,6 +18,11 @@ Install dependencies
 sudo apt update
 sudo apt upgrade
 
+sudo dpkg --add-architecture i386
+sudo apt update
+sudo apt install binutils-multiarch-dev
+sudo apt install ./libpng-fixed.deb
+
 sudo apt install gcc-10-base:i386 libc6:i386 libcrypt1:i386 \
     libgcc-s1:i386 libidn2-0:i386 libunistring2:i386 \
     zlib1g:i386 libxext6:i386 libsm6:i386 libxi6:i386 \
