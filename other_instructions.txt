@@ -1,5 +1,7 @@
+sudo apt install python3-pip
+pip install serial
+
 sudo apt install default-jre
-apt install fuse
 sudo apt install fuse
 sudo apt install sigrok
 
@@ -15,13 +17,20 @@ for f in /usr/lib/udev/rules.d/*brltty*.rules; do
 done
 sudo udevadm control --reload-rules
 
+install mcp3xxx in arduino
 
 gio set file.desktop metadata::trusted true
 [Desktop Entry]
 Name=ApplicationName
 Comment=ApplicationDescription
-Exec=/home/tumo/alchitry-labs-1.2.7/alchitry-labs
-Icon=/home/tumo/alchitry-labs-1.2.7/icon.png
+Exec=/home/tumo/tools/alchitry-labs-1.2.7/alchitry-labs
+Icon=/home/tumo/tools/alchitry-labs-1.2.7/icon.png
+Type=Application
+
+[Desktop Entry]
+Name=ApplicationName
+Comment=ApplicationDescription
+Exec=/home/tumo/tools/Logic-2.4.0-master.AppImage
 Type=Application
 
 
