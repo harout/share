@@ -21,16 +21,22 @@ install mcp3xxx in arduino
 
 gio set file.desktop metadata::trusted true
 [Desktop Entry]
-Name=ApplicationName
+Name=alchitry
 Comment=ApplicationDescription
 Exec=/home/tumo/tools/alchitry-labs-1.2.7/alchitry-labs
 Icon=/home/tumo/tools/alchitry-labs-1.2.7/icon.png
 Type=Application
 
 [Desktop Entry]
-Name=ApplicationName
+Name=saleae
 Comment=ApplicationDescription
 Exec=/home/tumo/tools/Logic-2.4.0-master.AppImage
+Type=Application
+
+[Desktop Entry]
+Name=arduino
+Comment=ApplicationDescription
+Exec=/home/tumo/tools/arduino-ide_nightly-20221024_Linux_64bit/arduino-ide
 Type=Application
 
 
